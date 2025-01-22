@@ -2,7 +2,7 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
+  
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
@@ -13,56 +13,118 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Links */
 a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
+  font-size: 1.1em; /* Larger clickable area for kiosk interaction */
 }
 a:hover {
   color: #535bf2;
 }
 
+/* Body */
 body {
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  flex-direction: column; /* Vertical stacking for kiosk layout */
+  background-color: #242424; /* Dark mode base */
 }
 
+/* Header */
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 3.5em;
+  line-height: 1.2;
+  margin-bottom: 20px; /* Spacing between heading and content */
+  color: #fff; /* Ensuring high contrast */
 }
 
+/* Buttons */
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
+  border-radius: 12px; /* Rounder buttons for more modern feel */
+  border: 2px solid transparent;
+  padding: 1em 2em; /* Increased padding for larger click area */
+  font-size: 1.2em; /* Bigger text for kiosk */
+  font-weight: 600;
   font-family: inherit;
   background-color: #1a1a1a;
+  color: #fff;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: all 0.3s ease;
+  margin: 20px; /* Space around buttons */
 }
+
 button:hover {
+  background-color: #535bf2;
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
+/* Light Theme Overrides */
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
+    border-color: #ddd;
+    color: #333; /* Darker text for light background */
+  }
+
+  /* Adjusting body text color for better contrast in light mode */
+  body {
+    color: #333;
+  }
+
+  h1 {
+    color: #212121;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5em; /* Smaller h1 on mobile */
+  }
+
+  button {
+    width: 100%; /* Full-width buttons on small screens */
+    padding: 1em 0;
+  }
+
+  /* Stack the navigation links vertically on smaller screens */
+  nav {
+    flex-direction: column;
+  }
+}
+
+/* Larger screen and kiosk styles */
+@media (min-width: 1024px) {
+  body {
+    padding: 40px; /* More space on larger screens */
+    justify-content: flex-start; /* Align content to the top */
+  }
+
+  h1 {
+    font-size: 4em; /* Larger header for kiosk use */
+  }
+
+  button {
+    font-size: 1.5em; /* Even larger button text for kiosks */
   }
 }
