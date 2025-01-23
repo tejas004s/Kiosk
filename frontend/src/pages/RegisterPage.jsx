@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
     const [formData, setFormData] = useState({
@@ -10,80 +10,53 @@ const RegisterPage = () => {
         role: 'Customer'
     });
 
+    const navigate = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        // Send the registration data to the backend
         axios.post('http://localhost:5000/api/users/register', formData)
-            .then(response => alert(response.data.message))
-            .catch(error => alert('Error registering: ' + error.message));
+            .then(response => {
+                alert(response.data.message);
+                navigate('/login'); // Redirect to login after successful registration
+            })
+            .catch(error => alert('Registration failed: ' + error.response.data.message));
     };
 
     return (
-        <Container>
+        <div>
             <h1>Register</h1>
-            <Form onSubmit={handleSubmit}>
-                <Input
+            <form onSubmit={handleSubmit}>
+                <input
                     type="text"
                     placeholder="Name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 />
-                <Input
+                <input
                     type="email"
                     placeholder="Email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 />
-                <Input
+                <input
                     type="password"
                     placeholder="Password"
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 />
-                <Select
+                <select
                     value={formData.role}
                     onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                 >
                     <option value="Customer">Customer</option>
                     <option value="Admin">Admin</option>
-                </Select>
-                <Button type="submit">Register</Button>
-            </Form>
-        </Container>
+                </select>
+                <button type="submit">Register</button>
+            </form>
+        </div>
     );
 };
-
-const Container = styled.div`
-    text-align: center;
-    margin: 20px;
-`;
-
-const Form = styled.form`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-`;
-
-const Input = styled.input`
-    padding: 10px;
-    width: 300px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-`;
-
-const Select = styled.select`
-    padding: 10px;
-    width: 320px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-`;
-
-const Button = styled.button`
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-`;
 
 export default RegisterPage;

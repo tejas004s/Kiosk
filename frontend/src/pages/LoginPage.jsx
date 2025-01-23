@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
-import { UserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/UserContext';
 
 const LoginPage = () => {
     const [formData, setFormData] = useState({ email: '', password: '' });
@@ -10,14 +10,16 @@ const LoginPage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        // Send the login data to the backend
         axios.post('http://localhost:5000/api/users/login', formData)
             .then(response => {
-                const { token, user } = response.data;
-                localStorage.setItem('token', token); // Save token
+                const { user } = response.data;
                 setUser(user); // Save user info in context
-                navigate('/'); // Redirect to home
+                alert(response.data.message);
+                navigate('/'); // Redirect to home on success
             })
-            .catch(error => alert('Login failed: ' + error.message));
+            .catch(error => alert('Login failed: ' + error.response.data.message));
     };
 
     return (
