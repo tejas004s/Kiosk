@@ -8,11 +8,13 @@ import OrderHistoryPage from './pages/OrderHistoryPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import AdminDashboard from './pages/AdminDashboard';
+import Cart from './pages/Cart'; // Add Cart component import
 import ProtectedRoute from './components/ProtectedRoute';
+import { CartProvider } from './context/CartContext' // Import CartProvider
 
 function App() {
     return (
-        <>
+        <CartProvider>
             {/* Apply global styles */}
             <GlobalStyles />
 
@@ -28,6 +30,7 @@ function App() {
                     <Route path="/menu" element={<MenuPage />} />
                     <Route path="/register" element={<RegisterPage />} />
                     <Route path="/login" element={<LoginPage />} />
+                    <Route path="/cart" element={<Cart />} /> {/* Add Cart route */}
 
                     {/* Protected Routes */}
                     <Route 
@@ -40,7 +43,7 @@ function App() {
                     />
                 </Routes>
             </Router>
-        </>
+        </CartProvider>
     );
 }
 

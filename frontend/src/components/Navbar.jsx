@@ -26,6 +26,7 @@ const Navbar = () => {
                     <>
                         <NavLink to="/login" $active={location.pathname === '/login'}>Login</NavLink>
                         <NavLink to="/register" $active={location.pathname === '/register'}>Register</NavLink>
+                        
                     </>
                 )}
             </NavLinks>

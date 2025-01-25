@@ -2,34 +2,52 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { UserContext } from '../context/UserContext';
+import { CartContext } from '../context/CartContext';
 
 const HomePage = () => {
     const { user } = useContext(UserContext);
+    const { cart } = useContext(CartContext);
 
     return (
         <Container>
-            <h1>Welcome to Online Food Ordering System</h1>
-            <p>Enjoy delicious food delivered right to your doorstep.</p>
+            <Header>
+                <h1>
+                    {user ? `Welcome, ${user.name}!` : 'Welcome to Online Food Ordering System'}
+                </h1>
+                <p>Enjoy delicious food delivered right to your doorstep.</p>
+            </Header>
             <ButtonContainer>
-                <Link to="/menu">
+                <StyledLink to="/menu" aria-label="View Menu">
                     <Button>View Menu</Button>
-                </Link>
+                </StyledLink>
                 {user && (
-                    <Link to="/orders">
+                    <StyledLink to="/orders" aria-label="View Order History">
                         <Button>Order History</Button>
-                    </Link>
+                    </StyledLink>
                 )}
             </ButtonContainer>
+            <CartSummary>
+                <p>Cart Items: {cart.length}</p>
+                <StyledLink to="/cart">
+                    <Button>Go to Cart</Button>
+                </StyledLink>
+            </CartSummary>
         </Container>
     );
 };
 
-const Container = styled.div`
+const Container = styled.main`
     text-align: center;
     padding: 50px;
     max-width: 800px;
     margin: 0 auto;
 
+    @media (max-width: 768px) {
+        padding: 20px;
+    }
+`;
+
+const Header = styled.header`
     h1 {
         font-size: 36px;
         color: #333;
@@ -42,8 +60,6 @@ const Container = styled.div`
     }
 
     @media (max-width: 768px) {
-        padding: 20px;
-
         h1 {
             font-size: 28px;
         }
@@ -60,6 +76,18 @@ const ButtonContainer = styled.div`
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
+`;
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+`;
+
+const CartSummary = styled.div`
+    margin-top: 20px;
+    p {
+        font-size: 18px;
+        color: #333;
+    }
 `;
 
 const Button = styled.button`
