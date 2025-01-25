@@ -5,9 +5,17 @@ import { UserContext } from '../context/UserContext';
 const ProtectedRoute = ({ children, role }) => {
     const { user } = useContext(UserContext);
 
-    if (!user) return <Navigate to="/login" />; // Redirect if not logged in
-    if (role && user.role !== role) return <Navigate to="/" />; // Restrict access by role
+    // If the user is not logged in, redirect to the login page
+    if (!user) {
+        return <Navigate to="/login" />;
+    }
 
+    // If a role is specified, check if the user's role matches
+    if (role && user.role !== role) {
+        return <Navigate to="/" />;
+    }
+
+    // If everything is valid, render the children components
     return children;
 };
 

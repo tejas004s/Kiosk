@@ -7,13 +7,15 @@ import MenuPage from './pages/MenuPage';
 import OrderHistoryPage from './pages/OrderHistoryPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
+import AdminDashboard from './pages/AdminDashboard';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
     return (
         <>
             {/* Apply global styles */}
             <GlobalStyles />
-            
+
             {/* Router wraps the entire app */}
             <Router>
                 {/* Add Navbar for consistent navigation */}
@@ -21,11 +23,21 @@ function App() {
 
                 {/* Define app routes */}
                 <Routes>
+                    {/* Public Routes */}
                     <Route path="/" element={<HomePage />} />
                     <Route path="/menu" element={<MenuPage />} />
-                    <Route path="/orders" element={<OrderHistoryPage />} />
                     <Route path="/register" element={<RegisterPage />} />
                     <Route path="/login" element={<LoginPage />} />
+
+                    {/* Protected Routes */}
+                    <Route 
+                        path="/orders" 
+                        element={<ProtectedRoute><OrderHistoryPage /></ProtectedRoute>} 
+                    />
+                    <Route 
+                        path="/admin" 
+                        element={<ProtectedRoute role="Admin"><AdminDashboard /></ProtectedRoute>} 
+                    />
                 </Routes>
             </Router>
         </>
