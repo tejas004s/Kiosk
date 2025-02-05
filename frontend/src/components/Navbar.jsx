@@ -9,7 +9,10 @@ const Navbar = () => {
 
     return (
         <Nav>
-            <Logo>Foodie</Logo>
+            <LogoContainer>
+                <LogoImage src="https://th.bing.com/th/id/OIP.nUkX0rkSOxksAMVx84BL4wHaHa?w=163&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="Quick Byte Logo" />
+                <LogoText>Quick Byte</LogoText>
+            </LogoContainer>
             <NavLinks>
                 <NavLink to="/" $active={location.pathname === '/'}>Home</NavLink>
                 <NavLink to="/menu" $active={location.pathname === '/menu'}>Menu</NavLink>
@@ -26,7 +29,6 @@ const Navbar = () => {
                     <>
                         <NavLink to="/login" $active={location.pathname === '/login'}>Login</NavLink>
                         <NavLink to="/register" $active={location.pathname === '/register'}>Register</NavLink>
-                        
                     </>
                 )}
             </NavLinks>
@@ -38,25 +40,44 @@ const Nav = styled.nav`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
+    padding: 20px 40px;
     background-color: #007BFF;
     color: white;
-    width: 100vw;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 `;
 
-const Logo = styled.h1`
-    font-size: 24px;
+const LogoContainer = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 15px;
+`;
+
+const LogoImage = styled.img`
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+`;
+
+const LogoText = styled.h1`
+    font-size: 26px;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
 `;
 
 const NavLinks = styled.div`
     display: flex;
-    gap: 20px;
+    gap: 25px;
 `;
 
 const NavLink = styled(Link)`
     font-size: 18px;
     color: ${({ $active }) => ($active ? '#FFD700' : 'white')};
     text-decoration: ${({ $active }) => ($active ? 'underline' : 'none')};
+    font-family: 'Arial', sans-serif;
 
     &:hover {
         text-decoration: underline;
@@ -69,6 +90,8 @@ const LogoutButton = styled.button`
     border: none;
     color: white;
     cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
 
     &:hover {
         text-decoration: underline;
